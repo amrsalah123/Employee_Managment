@@ -1,0 +1,12 @@
+﻿@model employee
+<div class="card">
+    <p class="text-danger">Are you sure you wan to delete</p>
+    <div class="card-header">
+        @Model.name
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Salary: @Model.salary</h5>
+        <p class="card-text">Department: @Model.department </p>
+        <a href="/home/del/@Model.id" class="btn btn-primary">Confirm delete</a>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿@model employee
+    <div class="card">
+        <div class="card-header">
+            @Model.name
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Salary: @Model.salary</h5>
+            <p class="card-text">Department: @Model.department </p>
+            <a href="/home/index" class="btn btn-primary">List</a>
+        </div>
+    </div>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Domain.employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<input type="text" name="emp_search" id="emp_search" oninput="ajaxCall()" class="form-control" placeholder="Search"/>
+<div id="data">
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.department)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.salary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.department)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-secondary">Edit</a> 
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info">Details</a>
+                        <a asp-action="del" asp-route-id="@item.id" class="btn btn-danger" onclick="confirmDelete()">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@section Scripts{
+    <script>
+        function confirmDelete()
+        {
+            var v = confirm("are you sure you want to delete this item ?!")
+            if (!v)
+                event.preventDefault();
+        }
+
+        function ajaxCall()
+        {
+            var key = $("#emp_search").val();
+            console.log(document.getElementById("emp_search").value);
+            $.ajax(
+                {
+                    url: "home/search",
+                    data: { "emp_search": key },
+                    success: function (result) {
+                        $("#data").html(result);
+                    },
+                    error: function () {  }
+
+                }
+            );
+        }
+    </script>
+ }
